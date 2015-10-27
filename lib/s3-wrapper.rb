@@ -48,9 +48,9 @@ class S3Wrapper
 
   def upload_file(file)
     puts "Uploading #{file}"
-    today = Time.now.strftime("%Y%m%d")
+    current_month = Time.now.strftime("%Y%m")
     key = File.basename(file)
-    key = "#{host_name}/#{profile_name}/#{today}/#{key}"
+    key = "#{host_name}/#{profile_name}/#{current_month}/#{key}"
     bucket.objects[key].delete
     bucket.objects[key].write(file: file, acl: :authenticated_read)
   end
