@@ -14,3 +14,5 @@
 *.a
 mkmf.log
 *swp
+.s3-wrapper.rc
+*.gem
