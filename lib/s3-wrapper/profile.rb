@@ -46,7 +46,7 @@ class S3Wrapper
     def self.read_config(name)
       config = {}
       begin
-        config = File.open(CONFIG_FILE) { |f| YAML.load(f) }
+        config = File.open(ENV['HOME'] + '/' + CONFIG_FILE) { |f| YAML.load(f) }
       rescue
 
       end
@@ -56,7 +56,7 @@ class S3Wrapper
     end
 
     def self.write_config(config)
-      open(CONFIG_FILE, 'w+') { |f| YAML.dump(config, f) }
+      open(ENV['HOME'] + '/' + CONFIG_FILE, 'w+') { |f| YAML.dump(config, f) }
     end
   end
 end
