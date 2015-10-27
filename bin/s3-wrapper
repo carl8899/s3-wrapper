@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+require 's3-wrapper'
+
+command = ARGV.shift
+if command == "config-default"
+	params = Hash[ ARGV.join(' ').scan(/([^=\s]+)(?:=(\S+))?/) ]
+	profile = S3Wrapper::Profile.config_default(params)
+	if profile
+		puts "configured default"
+	else
+		puts "failed to configure default"
+	end
+else
+	profile_name = ARGV.shift
+	profile = S3Wrapper::Profile.get(profile_name)
+
+	case command
+	when "create-profile"
+		params = Hash[ ARGV.join(' ').scan(/([^=\s]+)(?:=(\S+))?/) ]
+		profile = S3Wrapper::Profile.create(profile_name, params)
+		puts "created #{profile.name}" if profile
+	when "get-profile"
+		if profile
+			puts "name: #{profile.name}"
+			puts "aws_access_key: #{profile.aws_access_key}"
+			puts "aws_secret_key: #{profile.aws_secret_key}"
+			puts "bucket_name: #{profile.bucket_name}"
+			puts "host_name: #{profile.host_name}"
+		end
+	when "delete-profile"
+		S3Wrapper::Profile.delete(profile.name)
+	when "upload"
+		if profile
+			S3Wrapper.upload_files(profile, ARGV)
+			puts "done"
+		end
+	end
+end
