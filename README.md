@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Commands to manage the configuration file
+### Commands to manage the configuration file
 
 ```bash
 s3-wrapper config-default aws_access_key='aws-access-key' aws_secret_key='aws-secret-key' bucket_name='some-bucket-to-use' host_name='name-of-host-to-backup'
@@ -30,14 +30,24 @@ s3-wrapper get-profile 'profile-name'
 s3-wrapper delete-profile 'profile-name'
 ```
 
-Commands to upload files
+### Configuration keys
+Following four values need to be configured to run the tool successfully.
+1. aws_access_key - AWS access key
+2. aws_access_key - AWS secret key
+3. bucket_name - The name of AWS S3 bucket which the file would be uploaded to
+4. host_name - The name of the host which the profile is related to
+
+### Commands to upload files
 
 ```bash
 s3-wrapper upload 'profile-name' file1 file2
 ```
 
 This tool uploads files under following hierachy. The bucket needs to be created beforehand and directories are automatically created by the tool.
+
+```bash
 s3://@bucket_name@/@host_name@/@profile-name@/@curr_yy_mm@/@filename@
+```
 
 ## Contributing
 
