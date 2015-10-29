@@ -10,7 +10,7 @@ class S3Wrapper
     end
 
     def self.create(name, params)
-      config = read_config(name)
+      config = read_config(name, false)
       params.each do |key, value|
         config[name][key] = value
       end
@@ -19,13 +19,13 @@ class S3Wrapper
     end
 
     def self.delete(name)
-      config = read_config(name)
+      config = read_config(name, false)
       config.delete(name)
       self::write_config(config)
     end
 
     def self.get(name)
-      config = read_config(name)
+      config = read_config(name, true)
       S3Wrapper::Profile.new(name, config[name])
     end
 
@@ -43,7 +43,7 @@ class S3Wrapper
     end
 
     private
-    def self.read_config(name)
+    def self.read_config(name, with_default)
       config = {}
       begin
         config = File.open(ENV['HOME'] + '/' + CONFIG_FILE) { |f| YAML.load(f) }
@@ -52,6 +52,11 @@ class S3Wrapper
       end
       config = {} unless config
       config[name] = {} unless config[name]
+      if with_default && config['default'] && name != 'default'
+        config['default'].each do |key, value|
+          config[name][key] = value unless config[name][key] && value;
+        end
+      end
       config
     end
 
