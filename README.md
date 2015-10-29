@@ -38,6 +38,7 @@ Following four values need to be configured to run the tool successfully.
 3. bucket_name - The name of AWS S3 bucket which the file would be uploaded to
 4. host_name - The name of the host which the profile is related to
 
+
 ### Commands to upload files
 
 ```bash
@@ -49,6 +50,8 @@ This tool uploads files under following hierachy. The bucket needs to be created
 ```bash
 s3://@bucket_name@/@host_name@/@profile-name@/@curr_yy_mm@/@filename@
 ```
+
+The profile would override default configuration values.
 
 ## Contributing
 
