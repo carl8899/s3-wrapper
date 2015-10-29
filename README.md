@@ -32,6 +32,7 @@ s3-wrapper delete-profile 'profile-name'
 
 ### Configuration keys
 Following four values need to be configured to run the tool successfully.
+
 1. aws_access_key - AWS access key
 2. aws_access_key - AWS secret key
 3. bucket_name - The name of AWS S3 bucket which the file would be uploaded to
