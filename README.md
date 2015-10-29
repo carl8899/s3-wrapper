@@ -1,6 +1,6 @@
 # s3-wrapper
 
-This gem copies file to s3. It's especially useful to copy backup to s3 in organized structure.
+This gem copies files to AWS S3. It's especially useful to upload files to AWS S3 in organized structure.
 
 ## Installation
 
